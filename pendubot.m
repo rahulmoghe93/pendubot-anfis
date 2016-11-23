@@ -46,14 +46,11 @@ y=deval(sol,t);
 th1=y(1,:)'; th1dot=y(2,:)';
 th2=y(3,:)'; th2dot=y(4,:)';
 l1=xinit(8); l2=xinit(9);
-% th1=x(:,1); th1dot=x(:,2);
-% th2=x(:,3); th2dot=x(:,4);
-% l1=xinit(8); l2=xinit(9);
 
 h=plot(0,0,'MarkerSize',30,'Marker','.','LineWidth',2);
 range=1.1*(l1+l2);
 axis([-range range -range range]);
-axis square;
+axis square
 set(gca,'nextplot','replacechildren');
 
 	if mov

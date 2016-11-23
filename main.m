@@ -4,9 +4,9 @@ clear all; close all; clc
 config
 
 % Simulate the double link pendulum for the given input
-duration		=		10		;
-fps				=		50		;
-mov 			= 		false	;
+duration		=		5		;
+fps				=		100		;
+mov 			= 		true	;
 
 % Play animation
 pendubot(xinit, duration, fps, mov);
