@@ -14,9 +14,9 @@ lc2		= 	0.134		; % Length of the non actuated link
 g 		= 	9.81		; % Gravitational Constant
 I1 		= 	0.00803		; % Gravitational Constant
 I2 		= 	0.001812	; % Gravitational Constant
-th1 	=	pi/2		; % Initial anglular position of actuated link
+th1 	=	0			; % Initial anglular position of actuated link
 th1dot	= 	0			; % Initial angular velocity of actuated link
-th2 	=	0			; % Initial anglular position of non actuated link
+th2 	=	pi/6		; % Initial anglular position of non actuated link
 th2dot	= 	0			; % Initial angular velocity of non actuated link
 k.ke 	= 	0.15		; % The gains for E_bar in the Lyapunov Function
 k.kd 	= 	0.01		; % The gains for dq1 in the Lyapunov Function
@@ -25,4 +25,4 @@ k.kp 	= 	0.01		; % The gains for q_bar in the Lyapunov Function
 % Initial condition vector
 xinit 	=	[th1;th1dot;th2;th2dot;g;m1;m2;l1;l2;...
 			lc1;lc2;I1;I2]; % Initial condition to the ode
-xG = [-pi/2;0];
+xG = [pi/2;0];

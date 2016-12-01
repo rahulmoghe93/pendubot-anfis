@@ -38,11 +38,11 @@ function xdot = pendubot_ode(t,x,u)
 	C = t3.*sin(q2).*[-dq2, -dq2-dq1;...
 					   dq1,  0]; 
 
-	% Gravitational Term g(q)
-	g = [t4*g*cos(q1) + t5*g*cos(q1+q2) ; t5*g*cos(q1+q2)];
+	% Gravitational Term G(q)
+	G = [t4*g*cos(q1) + t5*g*cos(q1+q2) ; t5*g*cos(q1+q2)];
 
-	ddq = det(Dinv).*[t2*u(1); -(t2+t3*cos(q2))*u(1)] -...
-			Dinv*(C*[dq1;dq2] + g);
+	ddq = det(Dinv).*[t2*u; -(t2+t3*cos(q2))*u] -...
+			Dinv*(C*[dq1;dq2] + G);
 
 	xdot=zeros(13,1);
 
