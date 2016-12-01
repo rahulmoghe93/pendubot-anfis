@@ -1,7 +1,8 @@
 function pendubot(xinit, duration, fps, mov)
 % pendubot animates the pendubot for the given input
 %
-%   author:  Rahul Moghe (rahulmoghe93@gmail.com)
+%   author  :   Rahul Moghe (rahulmoghe93@gmail.com)
+%   date    :   Nov 23, 2016
 %
 %   parameters:
 %   
@@ -39,7 +40,7 @@ function pendubot(xinit, duration, fps, mov)
 clear All; clf;
 
 nframes=duration*fps;
-sol=ode45(@pendubot_ode,[0 duration], xinit);
+sol=ode45(@(t,x) pendubot_ode(t,x,0),[0 duration], xinit);
 t = linspace(0,duration,nframes);
 y=deval(sol,t);
 
