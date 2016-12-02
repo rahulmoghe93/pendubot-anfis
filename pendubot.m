@@ -40,7 +40,7 @@ function pendubot(xinit, duration, fps, mov)
 clear All; clf;
 
 nframes=duration*fps;
-sol=ode45(@(t,x) pendubot_ode(t,x,0),[0 duration], xinit);
+sol=ode23s(@(t,x) pendubot_ode(t,x,0),[0 duration], xinit);
 t = linspace(0,duration,nframes);
 y=deval(sol,t);
 
@@ -48,12 +48,13 @@ th1=y(1,:)'; th1dot=y(2,:)';
 th2=y(3,:)'; th2dot=y(4,:)';
 l1=xinit(8); l2=xinit(9);
 
+fig = figure(1);
+fig.Position = [100 100 1049 895];
 h=plot(0,0,'MarkerSize',30,'Marker','.','LineWidth',2);
 range=1.1*(l1+l2);
 axis([-range range -range range]);
 axis square
 set(gca,'nextplot','replacechildren');
-
 	if mov
 		v = VideoWriter('mov/pendubot.avi');
 		open(v);
@@ -63,7 +64,7 @@ set(gca,'nextplot','replacechildren');
         if ishandle(h)
             Xcoord=[0,l1*sin(th1(i)),l1*sin(th1(i))+l2*sin(th2(i))];
             Ycoord=[0,-l1*cos(th1(i)),-l1*cos(th1(i))-l2*cos(th2(i))];
-            set(h,'XData',Xcoord,'YData',Ycoord,'Color','red');
+            set(h,'XData',Xcoord,'YData',Ycoord,'Color','black');
             drawnow;
             F(i) = getframe;
             if mov
@@ -74,3 +75,37 @@ set(gca,'nextplot','replacechildren');
     if mov
         close(v);
     end
+
+phaseplot = figure(2);
+subplot(2,1,1)
+plot(th1,th1dot,'r','LineWidth',2)
+title('$\theta_1$ Phase Plot','Interpreter','latex','Fontsize',18)
+xlabel('$\theta_1$','Interpreter','latex','Fontsize',18)
+ylabel('$\dot{\theta}_1$','Interpreter','latex','Fontsize',18)
+subplot(2,1,2)
+plot(th2,th2dot,'r','LineWidth',2)
+title('$\theta_2$ Phase Plot','Interpreter','latex','Fontsize',18)
+xlabel('$\theta_2$','Interpreter','latex','Fontsize',18)
+ylabel('$\dot{\theta}_2$','Interpreter','latex','Fontsize',18)
+
+states = figure(3);
+subplot(2,2,1)
+plot(t,th1,'b','LineWidth',2)
+title('$\theta_1$ vs. time','Interpreter','latex','Fontsize',18)
+xlabel('$time$','Interpreter','latex','Fontsize',18)
+ylabel('$\dot{\theta}_1$','Interpreter','latex','Fontsize',18)
+subplot(2,2,2)
+plot(t,th2,'b','LineWidth',2)
+title('$\theta_2$ Phase Plot','Interpreter','latex','Fontsize',18)
+xlabel('$time$ [s]','Interpreter','latex','Fontsize',18)
+ylabel('$\theta_2$','Interpreter','latex','Fontsize',18)
+subplot(2,2,3)
+plot(t,th1dot,'b','LineWidth',2)
+title('$\dot{\theta}_1$ vs. time','Interpreter','latex','Fontsize',18)
+xlabel('$time$ [s]','Interpreter','latex','Fontsize',18)
+ylabel('$\dot{\theta}_1$','Interpreter','latex','Fontsize',18)
+subplot(2,2,4)
+plot(t,th2dot,'b','LineWidth',2)
+title('$\dot{\theta}_2$ vs. time','Interpreter','latex','Fontsize',18)
+xlabel('$time$ [s]','Interpreter','latex','Fontsize',18)
+ylabel('$\dot{\theta}_2$','Interpreter','latex','Fontsize',18)

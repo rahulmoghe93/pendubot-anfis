@@ -13,7 +13,7 @@ clear all; close all; clc
 config
 
 % Simulate the double link pendulum for the given input
-duration		=		10		; % duration of the simulation
+duration		=		5		; % duration of the simulation
 fps				=		50		; % frames per second
 mov 			= 		0		; % 1 => store the video & 0 => don't save video
 

@@ -13,36 +13,27 @@ function xdot = pendubot_ode(t,x,u)
 %
 %   ---------------------------------------------------------------------
 
-	global 		xG
-	global 		k
-
 	q1 = x(1); dq1 = x(2); q2 = x(3); dq2 = x(4);
 
 	g=x(5); m1=x(6); m2=x(7); l1=x(8); l2=x(9);
 	lc1=x(10); lc2=x(11); I1=x(12); I2=x(13);
 
-	t1 = m1*lc1*lc1 + m2*l1*l1 + I1;
-	t2 = m2*lc2*lc2 + I2;
-	t3 = m2*l1*lc2;
-	t4 = m1*lc1 + m2*l1;
-	t5 = m2*lc2;
-
 	%  Inertia Matrix D(q)
-	D = [t1 + t2 + 2*t3*cos(q2), t2 + t3*cos(q2);...
-		 	t2 + t3*cos(q2),  t2];
+	D = [ I1 + m2*l1*l1 		,	m2*l1*lc2*cos(q2-q1);...
+		  m2*l1*lc2*cos(q2-q1)	,	I2					];
 
 	%  Inverse of the inertia matrix
-	Dinv = [t2, -t2 - t3*cos(q2); -t2 - t3*cos(q2), t1+t2+2*t3*cos(q2)]./det(D);
+	Dinv = D\eye(2);
 
 	% Coriolis Term C(q,dq)
-	C = t3.*sin(q2).*[-dq2, -dq2-dq1;...
-					   dq1,  0]; 
+	C = [	0.002				,	-m2*l1*lc2*sin(q2-q1)*dq2;...
+			m2*l1*lc2*sin(q2-q1),	0.002					];
 
 	% Gravitational Term G(q)
-	G = [t4*g*cos(q1) + t5*g*cos(q1+q2) ; t5*g*cos(q1+q2)];
+	G = [g*sin(q1)*(m1*lc1 + m2*l1) ;...
+		 g*sin(q2)*m2*lc2			];
 
-	ddq = det(Dinv).*[t2*u; -(t2+t3*cos(q2))*u] -...
-			Dinv*(C*[dq1;dq2] + G);
+	ddq = Dinv*([u-0.02*tanh(dq1*1000);-0.00*tanh(dq2*1000)] - G - C*[dq1;dq2]);
 
 	xdot=zeros(13,1);
 
