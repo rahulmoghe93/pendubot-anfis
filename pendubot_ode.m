@@ -26,14 +26,15 @@ function xdot = pendubot_ode(t,x,u)
 	Dinv = D\eye(2);
 
 	% Coriolis Term C(q,dq)
-	C = [	0.002				,	-m2*l1*lc2*sin(q2-q1)*dq2;...
-			m2*l1*lc2*sin(q2-q1),	0.002					];
+	C = [	0.0				,	-m2*l1*lc2*sin(q2-q1)*dq2;...
+			m2*l1*lc2*sin(q2-q1),	0.0					];
 
 	% Gravitational Term G(q)
 	G = [g*sin(q1)*(m1*lc1 + m2*l1) ;...
 		 g*sin(q2)*m2*lc2			];
 
-	ddq = Dinv*([u-0.02*tanh(dq1*1000);-0.001*tanh(dq2*1000)] - G - C*[dq1;dq2]);
+	ddq = Dinv*([u;0] - G - C*[dq1;dq2]);
+	% ddq = Dinv*([u-0.02*tanh(dq1*1000);-0.001*tanh(dq2*1000)] - G - C*[dq1;dq2]);
 
 	xdot=zeros(13,1);
 
@@ -44,3 +45,4 @@ function xdot = pendubot_ode(t,x,u)
 	xdot(3)=x(4);
 
 	xdot(4)= ddq(2);
+	% fprintf('t = %f\tq1 = %f\tq2 = %f\n',t,q1,q2);
