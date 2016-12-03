@@ -33,7 +33,7 @@ function xdot = pendubot_ode(t,x,u)
 	G = [g*sin(q1)*(m1*lc1 + m2*l1) ;...
 		 g*sin(q2)*m2*lc2			];
 
-	ddq = Dinv*([u-0.02*tanh(dq1*1000);-0.00*tanh(dq2*1000)] - G - C*[dq1;dq2]);
+	ddq = Dinv*([u-0.02*tanh(dq1*1000);-0.001*tanh(dq2*1000)] - G - C*[dq1;dq2]);
 
 	xdot=zeros(13,1);
 

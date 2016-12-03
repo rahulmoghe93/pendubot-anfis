@@ -6,7 +6,8 @@ function pendubot(xinit, duration, fps, mov)
 %
 %   parameters:
 %   
-%   xinit=[th1; th1dot; th2; th2dot; g; m1; m2; l1; l2];
+%   xinit=[th1; th1dot; th2; th2dot; g; m1; m2; l1; l2;...
+%          lc1; lc2; I1; I2];
 %
 %                               Initial value problem. th1 and th1dot are
 %                               the initial angle and anglular velocity. g
@@ -49,7 +50,7 @@ th2=y(3,:)'; th2dot=y(4,:)';
 l1=xinit(8); l2=xinit(9);
 
 fig = figure(1);
-fig.Position = [100 100 1049 895];
+fig.Position = [1000 100 1049 895];
 h=plot(0,0,'MarkerSize',30,'Marker','.','LineWidth',2);
 range=1.1*(l1+l2);
 axis([-range range -range range]);

@@ -37,4 +37,4 @@ k.kp 	= 	0.01		; % The gains for q_bar in the Lyapunov Function
 % Initial condition vector
 xinit 	=	[th1;th1dot;th2;th2dot;g;m1;m2;l1;l2;...
 			lc1;lc2;I1;I2]; % Initial condition to the ode
-xG = [pi/2;0];
+xG = [pi;0];
