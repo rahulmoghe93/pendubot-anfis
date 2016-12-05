@@ -1,5 +1,13 @@
 function u = u_fuzzy(t,x)
-
+% 
+% 		Made by Rahul Moghe, UT Austin
+% 		Date: Dec 4, 2016
+% 
+% 		Implementation of paper listed below
+% 		Ref: THEORY AND IMPLEMENTATION OF A FUZZY CONTROL SCHEME FOR PENDUBOT
+% 		Authors: Xiao Qing Ma and Chun-Yi Su
+% 		IFAC, 2002, Barcelona, Spain
+% 
 	global 	xG 		kf
 
 	q1 = x(1); dq1 = x(2); q2 = x(3); dq2 = x(4);

@@ -64,7 +64,7 @@ set(gca,'nextplot','replacechildren');
 	end
     changeFlag = 0;     tChange = 0;
     for i=1:length(th1)-1
-        u = [u; u_pass(t(i),y(:,i))];
+        u = [u; u_fuzzy(t(i),y(:,i))];
         V = [V; 0.5*(k.ke*(E(t(i),y(:,i))-EG).^2+k.kd*y(2,i)^2 + k.kp*(y(1,i)-xG(1)).^2)];
         Ebar = [Ebar E(t(i),y(:,i))-EG];
         if ishandle(h)
@@ -81,7 +81,7 @@ set(gca,'nextplot','replacechildren');
     if mov
         close(v);
     end
-u = [u;u_pass(t(end),y(:,end))];
+u = [u;u_fuzzy(t(end),y(:,end))];
 V = [V; 0.5*(k.ke*(E(t(end),y(:,end))-EG).^2+k.kd*y(2,end)^2 + k.kp*(y(1,end)-xG(1)).^2)];
 Ebar = [Ebar E(t(end),y(:,end))-EG];
 close(fig);
@@ -120,7 +120,7 @@ subplot(3,2,2)
 plot(t,th2./pi,'k','LineWidth',2)
 title('$\theta_2$ Phase Plot','Interpreter','latex','Fontsize',18)
 xlabel('$time$ [s]','Interpreter','latex','Fontsize',18)
-ylabel('$\theta_2$','Interpreter','latex','Fontsize',18)
+ylabel('$\theta_2\ ({\pi})$','Interpreter','latex','Fontsize',18)
 subplot(3,2,3)
 plot(t,th1dot,'k','LineWidth',2)
 title('$\dot{\theta}_1$ vs. time','Interpreter','latex','Fontsize',18)
@@ -130,7 +130,7 @@ subplot(3,2,4)
 plot(t,th2dot,'k','LineWidth',2)
 title('$\dot{\theta}_2$ vs. time','Interpreter','latex','Fontsize',18)
 xlabel('$time$ [s]','Interpreter','latex','Fontsize',18)
-ylabel('$\dot{\theta}_2$','Interpreter','latex','Fontsize',18)
+ylabel('$\dot{\theta}_2\ ({\pi})$','Interpreter','latex','Fontsize',18)
 subplot(3,2,[5,6])
 plot(t,u,'r','LineWidth',2)
 title('Control Input','Fontsize',14.5)

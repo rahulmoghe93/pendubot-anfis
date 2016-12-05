@@ -45,4 +45,4 @@ function xdot = pendubot_ode(t,x,u)
 	xdot(3)=x(4);
 
 	xdot(4)= ddq(2);
-	fprintf('t = %f\tq1 = %f\tq2 = %f\tu = %f\n',t,q1,q2,u);
+	% fprintf('t = %f\tq1 = %f\tq2 = %f\tu = %f\n',t,q1,q2,u);

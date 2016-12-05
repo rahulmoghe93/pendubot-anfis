@@ -33,7 +33,12 @@ th2dot	= 	0			; % Initial angular velocity of non actuated link
 % Passivity controller parameters
 k.ke 	= 	1.5			; % The gains for E_bar in the Lyapunov Function
 k.kd 	= 	1			; % The gains for dq1 in the Lyapunov Function
-k.kp 	= 	1			; % The gains for q_bar in the Lyapunov Function
+k.kp 	= 	11			; % The gains for q_bar in the Lyapunov Function
+k.kp1 	= 	0.88		; % Gain for the fuzzy PD linear controller
+k.kd1 	= 	4.25		; % Gain for the fuzzy PD linear controller
+k.kp2 	= 	21.66		; % Gain for the fuzzy PD linear controller
+k.kd2 	= 	2.75		; % Gain for the fuzzy PD linear controller
+k.l 	= 	0.75		;
 
 % Fuzzy swing-up controller parameters
 kf.k1 	= 	1			; % 
@@ -46,14 +51,14 @@ kf.l 	= 	0.325		; %
 kf.G 	= 	3			; % Gain for Torque
 
 % Fuzzy PD based balancing controller
-kf.kp1 = 0.88;
-kf.kd1 = 4.25;
-kf.kp2 = 21.66;
-kf.kd2 = 2.75;
-kf.lam = 0.75;
+kf.kp1 	= 	0.88		;
+kf.kd1 	= 	4.25		;
+kf.kp2 	= 	21.66		;
+kf.kd2 	= 	2.75		;
+kf.lam 	= 	0.75		;
 
 % Initial condition vector
 xinit 	=	[th1;th1dot;th2;th2dot;g;m1;m2;l1;l2;...
 			lc1;lc2;I1;I2]; % Initial condition to the ode
-xG = [0;pi];
+xG = [pi;pi];
 EG = m1*g*lc1*cos(xG(1))-m2*g*(l1*cos(xG(1))+lc2*cos(xG(2))); % Energy of the goal state

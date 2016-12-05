@@ -14,12 +14,14 @@ global 		changeFlag 		tChange
 config
 
 % Simulate the double link pendulum for the given input
-duration		=		10		; % duration of the simulation
-fps				=		200		; % frames per second
+duration		=		1.5		; % duration of the simulation
+fps				=		100		; % frames per second
 mov 			= 		1		; % 1 => store the video & 0 => don't save video
 changeFlag 		=		0		; % Change to Linear Controller permanently
 tChange			=		0		; % Start of linear controller
 
 % Play animation
+tic
 pendubot
 % pendubot(xinit, duration, fps, mov);
+toc
