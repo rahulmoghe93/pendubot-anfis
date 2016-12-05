@@ -16,12 +16,11 @@ function u = u_pass(t,x)
 	g=x(5); m1=x(6); m2=x(7); l1=x(8); l2=x(9);
 	lc1=x(10); lc2=x(11); I1=x(12); I2=x(13);
 
-	if abs(q1-xG(1)) <1.8 && abs(q2-xG(2))<1.8
-		p = 200;		d = 100;
+	if abs(q1-xG(1)) <1 && abs(q2-xG(2))<1
+		p = 2;		d = 2;
 		u = p*(q2-xG(2)) + d*(dq2);
 		display('linear control...')
 		return
-		display('linear control applied...')
 	end
 	%  Inertia Matrix D(q)
 	D = [ I1 + m2*l1*l1 		,	m2*l1*lc2*cos(q2-q1);...
@@ -31,8 +30,8 @@ function u = u_pass(t,x)
 	Dinv = D\eye(2);
 
 	% Coriolis Term C(q,dq)
-	C = [	0.002				,	-m2*l1*lc2*sin(q2-q1)*dq2;...
-			m2*l1*lc2*sin(q2-q1),	0.002					];
+	C = [	0.002					,	-m2*l1*lc2*sin(q2-q1)*dq2;...
+			m2*l1*lc2*sin(q2-q1)*dq1,	0.002					];
 
 	% Gravitational Term G(q)
 	G = [g*sin(q1)*(m1*lc1 + m2*l1) ;...

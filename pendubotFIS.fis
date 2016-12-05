@@ -1,0 +1,81 @@
+[System]
+Name='pendubotFIS'
+Type='sugeno'
+Version=2.0
+NumInputs=4
+NumOutputs=1
+NumRules=13
+AndMethod='prod'
+OrMethod='probor'
+ImpMethod='prod'
+AggMethod='sum'
+DefuzzMethod='wtaver'
+
+[Input1]
+Name='theta1'
+Range=[-1.57125 1.57125]
+NumMFs=5
+MF1='VVN':'gaussmf',[0.5342 -1.572]
+MF2='Z':'gaussmf',[0.1166 0]
+MF3='VVP':'gaussmf',[0.5336 1.572]
+MF4='N':'gaussmf',[0.5342 -0.5002]
+MF5='P':'gaussmf',[0.5342 0.5002]
+
+[Input2]
+Name='theta1dot'
+Range=[-9.426 9.426]
+NumMFs=5
+MF1='VVN':'gaussmf',[3.204 -9.427]
+MF2='Z':'gaussmf',[0.7 0]
+MF3='VVP':'gaussmf',[3.204 9.427]
+MF4='N':'gaussmf',[3.204 -3]
+MF5='P':'gaussmf',[3.204 3]
+
+[Input3]
+Name='theta2'
+Range=[-0.523598775598299 6.80678408277789]
+NumMFs=7
+MF1='VVN':'gaussmf',[1.244 -0.5238]
+MF2='N':'gaussmf',[1.244 0.8087]
+MF3='VVP':'gaussmf',[1.244 6.808]
+MF4='Z':'gaussmf',[0.2718 3.142]
+MF5='P':'gaussmf',[1.244 5.475]
+MF6='SN':'gaussmf',[0.7793 2.442]
+MF7='SP':'gaussmf',[0.7793 3.842]
+
+[Input4]
+Name='theta2dot'
+Range=[-9.42477796076938 9.42477796076938]
+NumMFs=5
+MF1='VVL':'gaussmf',[3.202 -9.425]
+MF2='Z':'gaussmf',[0.7 0]
+MF3='VVP':'gaussmf',[3.204 9.425]
+MF4='L':'gaussmf',[3.204 -3]
+MF5='P':'gaussmf',[3.204 3]
+
+[Output1]
+Name='torque'
+Range=[0 1]
+NumMFs=7
+MF1='ExtremeNegative':'constant',[-3]
+MF2='ExtremePositive':'constant',[3]
+MF3='SmallNegative':'constant',[-0.4]
+MF4='SmallPositive':'constant',[0.4]
+MF5='Zero':'constant',[0]
+MF6='HighPositive':'constant',[1]
+MF7='HighNegative':'constant',[-1]
+
+[Rules]
+2 2 4 2, 5 (1) : 1
+2 0 1 0, 6 (1) : 1
+2 0 3 0, 7 (1) : 1
+4 0 3 0, 7 (1) : 1
+5 0 1 0, 6 (1) : 1
+5 0 2 0, 1 (1) : 1
+4 0 5 0, 2 (1) : 1
+5 0 6 0, 4 (1) : 1
+4 0 7 0, 3 (1) : 1
+1 0 5 0, 2 (1) : 1
+3 0 2 0, 1 (1) : 1
+5 0 6 0, 3 (1) : 1
+4 0 7 0, 4 (1) : 1

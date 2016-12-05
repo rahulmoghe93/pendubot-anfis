@@ -38,12 +38,12 @@
 %
 %   ---------------------------------------------------------------------
 
-global      k   xG  EG
+global      k   xG  EG  changeFlag  tChange
 
 clear All; clf;
-upass = []; V=[];   Ebar = [];
+u = []; V=[];   Ebar = [];
 nframes=duration*fps;
-sol=ode23s(@(t,x) pendubot_ode(t,x,u_pass(t,x)),[0 duration], xinit);
+sol=ode23s(@(t,x) pendubot_ode(t,x,u_fuzzy(t,x)),[0 duration], xinit);
 t = linspace(0,duration,nframes);
 y=deval(sol,t);
 
@@ -52,7 +52,7 @@ th2=y(3,:)'; th2dot=y(4,:)';
 l1=xinit(8); l2=xinit(9);
 
 fig = figure(1);
-fig.Position = [2000 0 1049 895];
+fig.Position = [500 0 1049 895];
 h=plot(0,0,'MarkerSize',30,'Marker','.','LineWidth',2);
 range=1.1*(l1+l2);
 axis([-range range -range range]);
@@ -62,16 +62,16 @@ set(gca,'nextplot','replacechildren');
 		v = VideoWriter('mov/pendubot.avi');
 		open(v);
 	end
-
+    changeFlag = 0;     tChange = 0;
     for i=1:length(th1)-1
-        upass = [upass; u_pass(t(i),y(:,i))];
+        u = [u; u_pass(t(i),y(:,i))];
         V = [V; 0.5*(k.ke*(E(t(i),y(:,i))-EG).^2+k.kd*y(2,i)^2 + k.kp*(y(1,i)-xG(1)).^2)];
         Ebar = [Ebar E(t(i),y(:,i))-EG];
         if ishandle(h)
             Xcoord=[0,l1*sin(th1(i)),l1*sin(th1(i))+l2*sin(th2(i))];
             Ycoord=[0,-l1*cos(th1(i)),-l1*cos(th1(i))-l2*cos(th2(i))];
             set(h,'XData',Xcoord,'YData',Ycoord,'Color','black');
-            drawnow;
+            drawnow update;
             F(i) = getframe;
             if mov
 	        	writeVideo(v,F(i));
@@ -81,13 +81,13 @@ set(gca,'nextplot','replacechildren');
     if mov
         close(v);
     end
-upass = [upass;u_pass(t(end),y(:,end))];
+u = [u;u_pass(t(end),y(:,end))];
 V = [V; 0.5*(k.ke*(E(t(end),y(:,end))-EG).^2+k.kd*y(2,end)^2 + k.kp*(y(1,end)-xG(1)).^2)];
 Ebar = [Ebar E(t(end),y(:,end))-EG];
 close(fig);
 
 phaseplotLyap = figure(2);
-phaseplotLyap.Position = [2500 400 800 800];
+phaseplotLyap.Position = [300 400 800 800];
 subplot(2,2,1)
 plot(th1,th1dot,'r','LineWidth',2)
 title('$\theta_1$ Phase Plot','Interpreter','latex','Fontsize',18)
@@ -110,7 +110,7 @@ xlabel('time [s]','Fontsize',14.5)
 ylabel('$\tilde{E}$(t)','Interpreter','latex','Fontsize',18)
 
 states = figure(3);
-states.Position = [2700 400 800 800];
+states.Position = [700 400 800 800];
 subplot(3,2,1)
 plot(t,th1./pi,'k','LineWidth',2)
 title('$\theta_1$ vs. time','Interpreter','latex','Fontsize',18)
@@ -132,7 +132,7 @@ title('$\dot{\theta}_2$ vs. time','Interpreter','latex','Fontsize',18)
 xlabel('$time$ [s]','Interpreter','latex','Fontsize',18)
 ylabel('$\dot{\theta}_2$','Interpreter','latex','Fontsize',18)
 subplot(3,2,[5,6])
-plot(t,upass,'r','LineWidth',2)
+plot(t,u,'r','LineWidth',2)
 title('Control Input','Fontsize',14.5)
 xlabel('time [s]','Fontsize',14.5)
 ylabel('u(t)','Fontsize',14.5)
