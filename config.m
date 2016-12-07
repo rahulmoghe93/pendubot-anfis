@@ -3,7 +3,7 @@
 global 		xinit
 global 		xG
 global 		EG
-global 		k 	kf
+global 	 	kf 		k
 
 % Parameters
 l1t		= 	0.215		;

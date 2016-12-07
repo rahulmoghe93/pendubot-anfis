@@ -3,7 +3,7 @@ function E = E(t,x)
 	% 
 	% 		Energy of Pendubot
 	% 
-	% author:	Rahul Moghe
+	% author:	Rahul Moghe, UT Austin
 	% date:		Dec 2, 2016
 
 	q1 = x(1); dq1 = x(2); q2 = x(3); dq2 = x(4);

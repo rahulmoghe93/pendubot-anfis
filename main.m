@@ -14,7 +14,7 @@ global 		changeFlag 		tChange
 config
 
 % Simulate the double link pendulum for the given input
-duration		=		1.5		; % duration of the simulation
+duration		=		2		; % duration of the simulation
 fps				=		100		; % frames per second
 mov 			= 		1		; % 1 => store the video & 0 => don't save video
 changeFlag 		=		0		; % Change to Linear Controller permanently

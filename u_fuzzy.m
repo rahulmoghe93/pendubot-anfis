@@ -8,15 +8,16 @@ function u = u_fuzzy(t,x)
 % 		Authors: Xiao Qing Ma and Chun-Yi Su
 % 		IFAC, 2002, Barcelona, Spain
 % 
-	global 	xG 		kf
-
+	global 	xG 		kf 
+	load swingupweights
+	kf = kf2;
 	q1 = x(1); dq1 = x(2); q2 = x(3); dq2 = x(4);
 	g=x(5); m1=x(6); m2=x(7); l1=x(8); l2=x(9);
 		lc1=x(10); lc2=x(11); I1=x(12); I2=x(13);
 
-	if abs(pi-q1)<01 && abs(pi-q2)<01
-		ss = kf.kp1*(pi-q1) - kf.kd1*(-dq1);
-		es = kf.kp2*(pi-q2) + kf.kd2*(-dq2);
+	if abs(mod(pi-q1,2*pi))<1.2 && abs(mod(pi-q2,2*pi))<1.2
+		ss = kf.kp1*(mod(pi-q1,2*pi)) + kf.kd1*(-dq1);
+		es = kf.kp2*mod(pi-q2,2*pi) + kf.kd2*(-dq2);
 		u = -kf.lam*es + (1-kf.lam)*ss;
 		display('linear control...')
 		return
