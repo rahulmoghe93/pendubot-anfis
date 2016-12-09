@@ -48,7 +48,7 @@ kf.k4 	= 	0.1			; %
 kf.mue 	= 	0.5			; % 
 kf.mus 	= 	0.5			; % 
 kf.l 	= 	0.325		; % 
-kf.G 	= 	3			; % Gain for Torque
+kf.G 	= 	3.2			; % Gain for Torque
 
 % Fuzzy PD based balancing controller
 kf.kp1 	= 	0.88		;

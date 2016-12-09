@@ -53,7 +53,7 @@ kf2.l = (kf2.l(1) + kf2.l(2))/2;
 mu = sqrt(svd(fisNet.LW{5,4}));
 kf2.mue = (mu(1) + mu(2))/2;
 kf2.mus = (mu(3) + mu(4))/2;
-kf2.G 	= fisNet.LW{9,8};
+kf2.G 	= abs(fisNet.LW{9,8});
 
 % Fuzzy PD based balancing controller
 kf2.kp1 	= 	0.88		;

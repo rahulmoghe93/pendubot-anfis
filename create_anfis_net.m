@@ -213,7 +213,7 @@ function createdfisNet = create_anfis_net(Nstates)
     % fisNet.performParam.slope = tan(pi/2 - 1.5285);
     fisNet.trainFcn   = 'trainlm';
 
-    fisNet.trainParam.min_grad = 1.0e-20;
+    fisNet.trainParam.min_grad = 1.0e-25;
     fisNet.trainParam.mu_max   = 1.0e+200;
     fisNet.trainParam.epochs   = 5000;
     fisNet.trainParam.mu_dec   = 0.2;

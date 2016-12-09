@@ -53,8 +53,10 @@ l1=xinit(8); l2=xinit(9);
 
 fig = figure(1);
 fig.Position = [500 0 1049 895];
+title('ANFIS Controller Simulation')
 h=plot(0,0,'MarkerSize',30,'Marker','.','LineWidth',2);
 range=1.1*(l1+l2);
+grid on;
 axis([-range range -range range]);
 axis square
 set(gca,'nextplot','replacechildren');
